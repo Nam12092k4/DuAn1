@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Olastore</title>
+    <link rel="shortcut icon" href="<?= BASE_URL ?>/MVC/public/images/icon_logo.png" />
+    
+    <link rel="stylesheet" href="<?= BASE_URL ?>/MVC/public/css/grid.css" />
+    <link rel="stylesheet" href="<?= BASE_URL ?>/MVC/public/css/base.css" />
+    <link rel="stylesheet" href="<?= BASE_URL ?>/MVC/public/css/style.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/MVC/public/css/style1.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/MVC/public/css/responsive.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/MVC/public/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/MVC/public/themify-icons/themify-icons.css" />
+    <link rel="stylesheet" href="<?= BASE_URL ?>/MVC/public/css/style2.css" />
+    <link rel="stylesheet" href="<?= BASE_URL ?>/MVC/public/css/boostrap.css" />
+	<link rel="stylesheet" href="<?= BASE_URL ?>/MVC/public/css/swal.css" />
+	<link rel="stylesheet" href="<?= BASE_URL ?>/MVC/public/css/jquery.jgrowl.min.css" />
+	<link rel="stylesheet" href="<?= BASE_URL ?>/MVC/public/css/hstatic.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src=" https://unpkg.com/sweetalert/dist/sweetalert.min.js "> </script>
+</head>
+
+<body style="background-color:#f5f5f5;">
+    <div class="app">
+        <span class="scroll-top show-scroll" id="toTop">
+            <i class="scroll-top__icon fas fa-chevron-up"></i>
+        </span>
+        <?php require_once "./mvc/views/blocks/header3.php"; ?>
+        <?php require_once "./mvc/views/Page/Site/" . $data["Page"] . ".php" ?>
+        <?php require_once "./mvc/views/blocks/footer.php"; ?>
+    </div>
+    <?php require_once "./mvc/views/Page/site/regsiter.php"; ?>
+    <?php require_once "./mvc/views/Page/site/forgot.php"; ?>
+    <!-- ============================= Javascript ===================================== -->
+    <script src="<?= BASE_URL ?>/MVC/public/js/sroll.js"></script>
+    <script src="<?= BASE_URL ?>/MVC/public/js/filter_price.js"></script>
+    <script src="<?= BASE_URL ?>/MVC/public/js/jquery.validate.min.js"></script>
+    <script src="<?= BASE_URL ?>/MVC/public/js/jquery-ui.min.js"></script>
+    <script src="<?= BASE_URL ?>/MVC/public/js/slider.js"></script>
+    <script>
+        window.addEventListener("scroll", function() {
+            let headerMenu = document.querySelector('#menu-area');
+            if (window.pageYOffset > 0) {
+                headerMenu.classList.add("cus-nav");
+            } else {
+                headerMenu.classList.remove("cus-nav");
+            }
+        })
+    </script>
+       <!-- SCRIPT PRODUCT -->
+<script src="//theme.hstatic.net/200000565469/1000915384/14/jquery.fancybox.min.js?v=328" type="text/javascript"></script>
+
+<script src="//theme.hstatic.net/200000565469/1000915384/14/slick.min.js?v=328" type="text/javascript"></script>
+<!-- SCRIPT THEME -->
+<script src="//theme.hstatic.net/200000565469/1000915384/14/scripts.js?v=328" defer=""></script>
+<script>
+var formatMoney = '{{amount}}₫';
+var template = "product";
+var priceMin ='';
+
+var locationHeader = false;
+
+/* Fix app buyXgetY */
+var cartItem = {
+		"1091315605": 1,		"1105703151": 1};
+
+var promotionApp = false,
+		promotionApp_name = '';
+
+var productReviewsApp = false;
+var productReviewsProloop = false;
+
+/* product set item */
+var prodItem_desk = 5,
+		prodItem_mobile = 2;
+prodItem_desk = 6
+
+prodItem_mobile = 2
+
+</script>
+<script>
+	var currentId = 1041840085;
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+<script>
+        function updateInput(selectId) {
+            // Lấy giá trị của các select
+            var city = document.getElementById('city').value;
+            var district = document.getElementById('district').value;
+            var ward = document.getElementById('ward').value;
+
+            // Hiển thị giá trị đã chọn trong input
+            var selectedOptionsInput = document.getElementById('selectedOptions');
+            selectedOptionsInput.value = city + (city && district ? ', ' : '') + district + (district && ward ? ', ' : '') + ward;
+        }
+    </script>
+
+    <script>
+        var citis = document.getElementById("city");
+        var districts = document.getElementById("district");
+        var wards = document.getElementById("ward");
+        var Parameter = {
+            url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json", 
+            method: "GET", 
+            responseType: "application/json", 
+        };
+        var promise = axios(Parameter);
+        promise.then(function (result) {
+            renderCity(result.data);
+        });
+
+        function renderCity(data) {
+            for (const x of data) {
+                citis.options[citis.options.length] = new Option(x.Name, x.Name);
+            }
+            citis.onchange = function () {
+                district.length = 1;
+                ward.length = 1;
+                if(this.value != ""){
+                    const result = data.filter(n => n.Name === this.value);
+
+                    for (const k of result[0].Districts) {
+                        district.options[district.options.length] = new Option(k.Name, k.Name);
+                    }
+                }
+
+                // Gọi hàm updateInput để cập nhật giá trị của input
+                updateInput('city');
+            };
+            district.onchange = function () {
+                ward.length = 1;
+                const dataCity = data.filter((n) => n.Name === citis.value);
+                if (this.value != "") {
+                    const dataWards = dataCity[0].Districts.filter(n => n.Name === this.value)[0].Wards;
+
+                    for (const w of dataWards) {
+                        wards.options[wards.options.length] = new Option(w.Name, w.Name);
+                    }
+                }
+
+                // Gọi hàm updateInput để cập nhật giá trị của input
+                updateInput('district');
+            };
+        }
+    </script>
+</body>
+
+</html>
